@@ -1,6 +1,7 @@
 #Uses python3
 import sys
 
+
 # Return the trie built from patterns
 # in the form of a dictionary of dictionaries,
 # e.g. {0:{'A':1,'T':2},1:{'C':3}}
