@@ -12,7 +12,21 @@ import sys
 # values are the node IDs to which these edges lead.
 def build_trie(patterns):
     tree = dict()
-    # write your code here
+
+    GID = 1
+    for pattern in patterns:
+        CID = 0
+        for c in pattern:
+            if CID not in tree:
+                tree[CID] = {}
+            if c not in tree[CID]:
+                tree[CID][c] = GID
+                CID = GID
+                GID += 1
+            else:
+                CID = tree[CID][c]
+
+    # print(tree)
     return tree
 
 
