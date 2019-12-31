@@ -1,19 +1,55 @@
 # python3
 import sys
 
-NA = -1
+
+def build_trie(patterns):
+    root = 0
+    trie = {}
+
+    nid = 1
+    for p in patterns:
+        node = root
+        for c in p:
+            if node not in trie:
+                trie[node] = {}
+            if c in trie[node]:
+                node = trie[node][c]
+            else:
+                trie[node][c] = nid
+                node = nid
+                nid += 1
+        if node not in trie:
+            trie[node] = {}
+        trie[node]['$'] = -1
+        # print(trie)
+
+    return trie
 
 
-class Node:
-    def __init__(self):
-        self.next = [NA] * 4
-        self.patternEnd = False
+def match_trie(trie, text, begin):
+    node = 0
+    for i in range(begin, len(text) + 1):
+        if '$' in trie[node]:
+            # if node not in trie:
+            return True
+        if i == len(text):
+            break
+        if text[i] in trie[node]:
+            node = trie[node][text[i]]
+            continue
+        return False
+    return False
 
 
 def solve(text, n, patterns):
     result = []
 
-    # write your code here
+    trie = build_trie(patterns)
+    # print(trie)
+
+    for i in range(len(text)):
+        if match_trie(trie, text, i):
+            result.append(i)
 
     return result
 
